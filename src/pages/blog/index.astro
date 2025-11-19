@@ -10,10 +10,10 @@ const { data } = await res.json();
   <h1>Blog page</h1>
   <ul>
     {
-      data.map(({ id, title, slug }) => (
+      data.map((post: any) => (
         <li>
-          <h2 data-id={id}>{title}</h2>
-          <a href={`/blog/${slug}`} class="btn active">
+          <h2 data-id={post.id}>{title}</h2>
+          <a href={`/blog/${post.slug}`} class="btn active">
             show more
           </a>
         </li>

@@ -1,16 +1,32 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-export const prerender = false;
-const { slug } = Astro.params;
-const res = await fetch(
-  `${import.meta.env.PUBLIC_STRAPI_URL}/api/posts?filters[slug]=${slug}&populate=users_permissions_user`
-);
-const { data } = await res.json();
-const post = data?.[0];
+
+export async function getStaticPaths() {
+  const res = await fetch(
+    `${import.meta.env.PUBLIC_STRAPI_URL}/api/posts?populate=users_permissions_user`
+  );
+  const result = await res.json();
+
+  if (!Array.isArray(result.data)) {
+    console.error("Strapi returned invalid data:", result);
+    return [];
+  }
+
+  return result.data.map((post: { slug: any }) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+
+if (!post) {
+  return Astro.redirect("/404", 302);
+}
 ---
 
-<Layout title={slug}>
-  <p>slug: {slug}</p>
+<Layout title={post.title}>
+  <p>slug: {post.slug}</p>
   <h2>title: {post.title}</h2>
-  <Fragment set:html={post.description} />
+  <p>author: {post.users_permissions_user?.username}</p>
 </Layout>
