@@ -3,8 +3,8 @@ import Layout from "../../layouts/Layout.astro";
 
 const res = await fetch(`${import.meta.env.PUBLIC_STRAPI_URL}/api/posts`);
 const { data } = await res.json();
-const title = data;
-const description = data;
+const title = `blog`;
+const description = `blog - ${data.map((x) => x.title).join(", ")}`;
 ---
 
 <Layout title={title} description={description}>
