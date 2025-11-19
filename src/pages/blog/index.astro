@@ -1,0 +1,23 @@
+---
+import Layout from "../../layouts/Layout.astro";
+const title = "Blog page";
+const description = "blog posts";
+const res = await fetch(`${import.meta.env.PUBLIC_STRAPI_URL}/api/posts`);
+const { data } = await res.json();
+---
+
+<Layout title={title} description={description}>
+  <h1>Blog page</h1>
+  <ul>
+    {
+      data.map(({ id, title, slug }) => (
+        <li>
+          <h2 data-id={id}>{title}</h2>
+          <a href={`/blog/${slug}`} class="btn active">
+            show more
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</Layout>

@@ -1,0 +1,16 @@
+---
+import Layout from "../../layouts/Layout.astro";
+export const prerender = false;
+const { slug } = Astro.params;
+const res = await fetch(
+  `${import.meta.env.PUBLIC_STRAPI_URL}/api/posts?filters[slug]=${slug}&populate=users_permissions_user`
+);
+const { data } = await res.json();
+const post = data?.[0];
+---
+
+<Layout title={slug}>
+  <p>slug: {slug}</p>
+  <h2>title: {post.title}</h2>
+  <Fragment set:html={post.description} />
+</Layout>

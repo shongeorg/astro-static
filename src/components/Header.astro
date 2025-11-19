@@ -1,0 +1,38 @@
+---
+const routes = [
+  { path: "/", displayName: "home page" },
+  { path: "/about", displayName: "About Us" },
+  { path: "/blog", displayName: "Blog" },
+];
+
+const clean = (p: string) => p.replace(/\/$/, "") || "/";
+const isActive = (path: string) => clean(Astro.url.pathname) === clean(path);
+---
+
+<header>
+  <nav>
+    <ul>
+      {
+        routes.map((route) => (
+          <li>
+            <a href={route.path} class:list={{ active: isActive(route.path) }}>
+              {route.displayName}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>
+
+<style>
+  header {
+    background-color: black;
+    a {
+      color: whitesmoke;
+      &.active {
+        color: crimson;
+      }
+    }
+  }
+</style>
