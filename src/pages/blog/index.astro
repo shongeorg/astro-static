@@ -1,9 +1,10 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-const title = "Blog page";
-const description = "blog posts";
+
 const res = await fetch(`${import.meta.env.PUBLIC_STRAPI_URL}/api/posts`);
 const { data } = await res.json();
+const title = data;
+const description = data;
 ---
 
 <Layout title={title} description={description}>
@@ -21,3 +22,11 @@ const { data } = await res.json();
     }
   </ul>
 </Layout>
+
+<style>
+  .btn.active {
+    background-color: crimson;
+    padding: 5px;
+    border-radius: 8px;
+  }
+</style>

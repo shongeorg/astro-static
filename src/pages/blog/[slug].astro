@@ -1,5 +1,7 @@
 ---
+// @ts-nocheck
 import Layout from "../../layouts/Layout.astro";
+import RichText from "./RichText";
 
 export async function getStaticPaths() {
   const res = await fetch(
@@ -12,7 +14,7 @@ export async function getStaticPaths() {
     return [];
   }
 
-  return result.data.map((post: { slug: any }) => ({
+  return result.data.map((post) => ({
     params: { slug: post.slug },
     props: { post },
   }));
@@ -26,7 +28,12 @@ if (!post) {
 ---
 
 <Layout title={post.title}>
-  <p>slug: {post.slug}</p>
-  <h2>title: {post.title}</h2>
-  <p>author: {post.users_permissions_user?.username}</p>
+  <div class="container">
+    <p>slug: {post.slug}</p>
+    <h2>title: {post.title}</h2>
+    <h3>
+      <RichText content={post.description} />
+    </h3>
+    <p>author: {post.users_permissions_user?.username}</p>
+  </div>
 </Layout>
