@@ -12,7 +12,7 @@ const { data } = await res.json();
     {
       data.map((post: any) => (
         <li>
-          <h2 data-id={post.id}>{title}</h2>
+          <h2 data-id={post.id}>{post.title}</h2>
           <a href={`/blog/${post.slug}`} class="btn active">
             show more
           </a>
