@@ -140,12 +140,14 @@ a {
   line-height: 1.5;
   letter-spacing: -0.03em;
 
-  --desktop-breakpoint: 120rem;
-  --tablet-breakpoint: 90rem;
-  --mobile-breakpoint: 47.9375rem;
   --container-width: 100rem;
   --container-padding-x: 0.9375rem;
 }
+
+/* @custom-media --desktop (min-width: 120rem);
+@custom-media --tablet (min-width: 90rem) and (max-width: 119.999rem);
+@custom-media --mobile (max-width: 47.9375rem);
+@custom-media --mid-screen (min-width: 47.9375rem) and (max-width: 119.999rem); */
 
 @media (max-width: 120rem) {
   :root {

@@ -10,7 +10,7 @@ const isActive = (path: string) => clean(Astro.url.pathname) === clean(path);
 ---
 
 <header>
-  <nav>
+  <nav class="container">
     <ul>
       {
         routes.map((route) => (

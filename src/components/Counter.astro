@@ -1,0 +1,41 @@
+---
+// const res = await fetch(`${import.meta.env.PUBLIC_STRAPI_URL}/api/counters`);
+// const { data } = await res.json();
+
+const data = [
+  {
+    name: "Resources available",
+    value: 300,
+  },
+  {
+    name: "Total Downloads",
+    value: 12000,
+  },
+  {
+    name: "Active Users",
+    value: 10000,
+  },
+];
+
+function formatRusK(num) {
+  const fmt = new Intl.NumberFormat("en-EN", { maximumFractionDigits: 0 });
+  if (num >= 1_000_000) {
+    return fmt.format(Math.round(num / 1_000_000)) + "kk";
+  }
+  if (num >= 1_000) {
+    return fmt.format(Math.round(num / 1_000)) + "kk";
+  }
+  return fmt.format(num);
+}
+---
+
+<ul>
+  {
+    data.map((item) => (
+      <li>
+        <h2>{item.name}</h2>
+        <p>{formatRusK(item.value)}</p>
+      </li>
+    ))
+  }
+</ul>
